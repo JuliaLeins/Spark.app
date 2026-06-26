@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Spark - Swipe & Scroll Hybrid</title>
+    <style>
+        /* NATIVE APP EMULATION */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4efe9;
+            color: #1e1815;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 430px; 
+            background: #f4efe9;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        /* FIXED HEADER */
+        .app-header {
+            height: 60px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f4efe9;
+            z-index: 10;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* SWIPE AREA CONTAINER & SCROLL INTERFACE */
+        .deck-wrapper {
+            flex-grow: 1;
+            position: relative;
+            margin: 10px 12px 0 12px;
+            overflow-y: auto; /* Vertikales Scrollen wird hier kontrolliert */
+            scrollbar-width: none;
+            touch-action: pan-y; /* Erlaubt flüssiges Wischen auf Smartphones */
+        }
+        .deck-wrapper::-webkit-scrollbar { display: none; }
+
+        /* HYBRID CARD */
+        .profile-card {
+            position: absolute;
+            width: 100%;
+            height: max-content; /* Karte wächst dynamisch mit dem Inhalt */
+            min-height: 100%;
+            background: #f4efe9;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 120px; /* Puffer-Zone am Ende des Profils */
+            box-shadow: 0 10px 30px rgba(30, 24, 21, 0.08);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+            transform-origin: center bottom;
+        }
+
+        .meta-header { padding: 15px 4px 5px 4px; }
+        .profile-name { font-size: 2.3rem; font-weight: 800; color: #1e1815; }
+
+        /* VOLLES BILD FORMAT STYLING */
+        .photo-wrapper {
+            width: 100%;
+            height: 480px; /* Feste App-Höhe für Bilder */
+            border-radius: 20px;
+            overflow: hidden;
+            background: #eaddd3; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            flex-shrink: 0; /* Verhindert das Zusammenstauchen */
+        }
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Proportionale Skalierung ohne Verzerrung */
+            pointer-events: none;
+        }
+
+        /* TEXT PROMPTS STYLING */
+        .prompt-card {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #eaddd3;
+            flex-shrink: 0; /* Verhindert das Zusammenstauchen */
+        }
+        .prompt-question { font-size: 0.85rem; font-weight: 700; color: #726861; letter-spacing: 0.5px; }
+        .prompt-answer { font-size: 1.25rem; font-weight: 700; line-height: 1.4; color: #1e1815; }
+
+        /* TINDER BADGES */
+        .swipe-badge {
+            position: absolute;
+            top: 40px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            opacity: 0;
+            z-index: 50;
+            pointer-events: none;
+        }
+        .badge-like { right: 30px; border: 4px solid #2ecc71; color: #2ecc71; transform: rotate(15deg); }
+        .badge-nope { left: 30px; border: 4px solid #e74c3c; color: #e74c3c; transform: rotate(-15deg); }
+
+        /* FIXED NAV */
+        .app-nav {
+            height: 65px;
+            background: #ffffff;
+            border-top: 1px solid #e2dbd5;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 10;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-icon { font-size: 1.4rem; color: #a49a93; font-weight: bold; }
+        .nav-icon.active { color: #1e1815; }
+
+        .empty-state {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            color: #726861;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="app-header"><span>Spark</span></div>
+
+    <div class="deck-wrapper" id="deck" onscroll="checkScrollTop(this)">
+        <div class="empty-state">
+            <h2>Keine Profile mehr!</h2>
+            <p style="margin-top: 10px;">Du hast alle Personen in deiner Nähe bewertet.</p>
+        </div>
+    </div>
+
+    <div class="app-nav">
+        <div class="nav-icon active">H</div>
+        <div class="nav-icon">★</div>
+        <div class="nav-icon">💬</div>
+        <div class="nav-icon">👤</div>
+    </div>
+</div>
+
+<script>
+    // Lokale Dateien aus deiner Ordner-Struktur im Sidebar
+    const profilesData = [
+        {
+            name: "Maximilian, 26",
+            img1: "ghan.png",
+            img2: "ghan2.png",
+            img3: "ghan3.png",
+            prompts: [
+                { q: "Etwas bei dem ich keine Kompromisse eingehe, ist...", a: "...meine Leidenschaft fürs Boxen." },
+                { q: "Ändere meine Meinung über...", a: "...das alte Klischee, dass man in einer Beziehung alles teilen muss." },
+                { q: "Ich könnte die ganze Nacht über... reden.", a: "...die Frage, wie man die perfekte App designt." }
+            ]
+        },
+        {
+            name: "Tessa, 24",
+            img1: "https://picsum.photos/id/338/400/600",
+            img2: "https://picsum.photos/id/364/400/600",
+            img3: "https://picsum.photos/id/350/400/600",
+            prompts: [
+                { q: "Der Schlüssel zu meinem Herzen ist...", a: "Gutes Essen, tiefe Gespräche um 2 Uhr nachts und ein Humor, der manchmal etwas zu trocken ist." },
+                { q: "Mein wichtigstes Kriterium bei einem Date:", a: "Du musst Hunde genauso sehr lieben wie ich, sonst wird das leider nichts." },
+                { q: "Lass uns streamen, wenn...", a: "Wir eine Dokumentation finden, über die wir uns danach stundenlang aufregen können." }
+            ]
+        }
+    ];
+
+    const deck = document.getElementById('deck');
+    let isAtTop = true; // Flag, um Swipen nur oben am Profil zu erlauben
+
+    function checkScrollTop(element) {
+        // Prüft, ob der User ganz oben angekommen ist
+        isAtTop = (element.scrollTop <= 5);
+    }
+
+    function createDeck() {
+        profilesData.forEach((profile, index) => {
+            const card = document.createElement('div');
+            card.classList.add('profile-card');
+            card.style.zIndex = profilesData.length - index;
+
+            card.innerHTML = `
+                <div class="swipe-badge badge-like">Like</div>
+                <div class="swipe-badge badge-nope">Nope</div>
+                
+                <div class="meta-header">
+                    <div class="profile-name">${profile.name}</div>
+                </div>
+
+                <div class="photo-wrapper">
+                    <img src="${profile.img1}" alt="Foto 1">
+                </div>
+                
+                <div class="prompt-card">
+                    <div class="prompt-question">${profile.prompts[0].q}</div>
+                    <div class="prompt-answer">${profile.prompts[0].a}</div>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-question">${profile.prompts[1].q}</div>
+                    <div class="prompt-answer">${profile.prompts[1].a}</div>
+                </div>
+
+                <div class="photo-wrapper">
+                    <img src="${profile.img2}" alt="Foto 2">
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-question">${profile.prompts[2].q}</div>
+                    <div class="prompt-answer">${profile.prompts[2].a}</div>
+                </div>
+
+                <div class="photo-wrapper">
+                    <img src="${profile.img3}" alt="Foto 3">
+                </div>
+            `;
+            deck.appendChild(card);
+            initSwipeGeste(card);
+        });
+    }
+
+    function initSwipeGeste(card) {
+        let startX = 0, startY = 0, currentX = 0, currentY = 0;
+        let isDragging = false;
+
+        const likeBadge = card.querySelector('.badge-like');
+        const nopeBadge = card.querySelector('.badge-nope');
+
+        card.addEventListener('touchstart', startDrag, { passive: true });
+        card.addEventListener('touchmove', doDrag, { passive: true });
+        card.addEventListener('touchend', endDrag);
+
+        card.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag);
+        window.addEventListener('mouseup', endDrag);
+
+        function startDrag(e) {
+            // Verhindert Swipen, wenn man mitten im Profil scrollt
+            if (!isAtTop) return;
+
+            isDragging = true;
+            const touch = e.type.includes('touch') ? e.touches[0] : e;
+            startX = touch.clientX;
+            startY = touch.clientY;
+            card.style.transition = 'none';
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+            const touch = e.type.includes('touch') ? e.touches[0] : e;
+            currentX = touch.clientX - startX;
+            currentY = touch.clientY - startY;
+
+            // Verhindert Konflikte mit vertikalem Scrollen beim Ziehen
+            if (Math.abs(currentX) > Math.abs(currentY)) {
+                let rotation = currentX / 12;
+                card.style.transform = `translate(${currentX}px, ${currentY * 0.1}px) rotate(${rotation}deg)`;
+
+                if (currentX > 30) {
+                    likeBadge.style.opacity = Math.min(currentX / 100, 1);
+                    nopeBadge.style.opacity = 0;
+                } else if (currentX < -30) {
+                    nopeBadge.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+                    likeBadge.style.opacity = 0;
+                } else {
+                    likeBadge.style.opacity = 0;
+                    nopeBadge.style.opacity = 0;
+                }
+            }
+        }
+
+        function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            card.style.transition = 'transform 0.4s ease, opacity 0.2s';
+
+            const swipeThreshold = 140;
+
+            if (currentX > swipeThreshold) {
+                card.style.transform = `translate(${window.innerWidth * 1.5}px, ${currentY}px) rotate(40deg)`;
+                card.style.opacity = '0';
+                setTimeout(() => { card.remove(); deck.scrollTop = 0; isAtTop = true; }, 300);
+            } else if (currentX < -swipeThreshold) {
+                card.style.transform = `translate(${-window.innerWidth * 1.5}px, ${currentY}px) rotate(-40deg)`;
+                card.style.opacity = '0';
+                setTimeout(() => { card.remove(); deck.scrollTop = 0; isAtTop = true; }, 300);
+            } else {
+                card.style.transform = 'translate(0, 0) rotate(0deg)';
+                likeBadge.style.opacity = 0;
+                nopeBadge.style.opacity = 0;
+            }
+            currentX = 0;
+        }
+    }
+
+    createDeck();
+</script>
+
+</body>
+</html>
