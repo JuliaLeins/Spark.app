@@ -38,18 +38,30 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        /* FIXED HEADER */
+        /* FIXED HEADER WITH COUNTER */
         .app-header {
-            height: 60px;
+            height: 65px;
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #f4efe9;
             z-index: 10;
+            border-bottom: 1px solid rgba(30, 24, 21, 0.05);
+        }
+        .header-title {
             font-weight: 800;
             font-size: 1.4rem;
             letter-spacing: -0.5px;
+        }
+        /* Styling für die Profilanzahl-Anzeige */
+        .profile-counter {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #726861;
+            background: rgba(30, 24, 21, 0.06);
+            padding: 4px 10px;
+            border-radius: 12px;
         }
 
         /* SWIPE AREA CONTAINER & SCROLL INTERFACE */
@@ -57,9 +69,9 @@
             flex-grow: 1;
             position: relative;
             margin: 10px 12px 0 12px;
-            overflow-y: auto; /* Vertikales Scrollen wird hier kontrolliert */
+            overflow-y: auto;
             scrollbar-width: none;
-            touch-action: pan-y; /* Erlaubt flüssiges Wischen auf Smartphones */
+            touch-action: pan-y;
         }
         .deck-wrapper::-webkit-scrollbar { display: none; }
 
@@ -67,14 +79,14 @@
         .profile-card {
             position: absolute;
             width: 100%;
-            height: max-content; /* Karte wächst dynamisch mit dem Inhalt */
+            height: max-content; 
             min-height: 100%;
             background: #f4efe9;
             border-radius: 24px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            padding-bottom: 120px; /* Puffer-Zone am Ende des Profils */
+            padding-bottom: 120px; 
             box-shadow: 0 10px 30px rgba(30, 24, 21, 0.08);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
             transform-origin: center bottom;
@@ -86,17 +98,17 @@
         /* VOLLES BILD FORMAT STYLING */
         .photo-wrapper {
             width: 100%;
-            height: 480px; /* Feste App-Höhe für Bilder */
+            height: 480px; 
             border-radius: 20px;
             overflow: hidden;
             background: #eaddd3; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            flex-shrink: 0; /* Verhindert das Zusammenstauchen */
+            flex-shrink: 0;
         }
         .photo-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Proportionale Skalierung ohne Verzerrung */
+            object-fit: cover;
             pointer-events: none;
         }
 
@@ -110,7 +122,7 @@
             flex-direction: column;
             gap: 10px;
             border: 1px solid #eaddd3;
-            flex-shrink: 0; /* Verhindert das Zusammenstauchen */
+            flex-shrink: 0;
         }
         .prompt-question { font-size: 0.85rem; font-weight: 700; color: #726861; letter-spacing: 0.5px; }
         .prompt-answer { font-size: 1.25rem; font-weight: 700; line-height: 1.4; color: #1e1815; }
@@ -161,7 +173,10 @@
 <body>
 
 <div class="app-container">
-    <div class="app-header"><span>Spark</span></div>
+    <div class="app-header">
+        <span class="header-title">Spark</span>
+        <span class="profile-counter" id="counter-display">Noch 0 Profile</span>
+    </div>
 
     <div class="deck-wrapper" id="deck" onscroll="checkScrollTop(this)">
         <div class="empty-state">
@@ -224,18 +239,167 @@
                 { q: "Lass uns sicherstellen, dass wir uns einig sind über…", a: "…dass Verbindlichkeit und Familie die absolute Priorität haben und Dating für mich kein unverbindliches Spiel im Internet ist." },
                 { q: "Ändere meine Meinung über…", a: "…die Vorstellung, dass eine Ehe am besten funktioniert, wenn klare, klassische Zuständigkeiten verteilt sind und jeder seine feste Rolle kennt." }
             ]
+        },
+        {
+        name: "Scott, 27",
+            img1: "nig1.png",
+            img2: "nig2.png",
+            img3: "nig3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "David, 26",
+            img1: "span1.png",
+            img2: "span2.png",
+            img3: "span3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Thommy, 28",
+            img1: "swed1.png",
+            img2: "swed2.png",
+            img3: "swed3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Sardar, 24",
+            img1: "tür1.png",
+            img2: "tür2.png",
+            img3: "tür3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Gino, 25",
+            img1: "ita1.png",
+            img2: "ita2.png",
+            img3: "ita3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Ivo, 29",
+            img1: "alb1.png",
+            img2: "alb2.png",
+            img3: "alb3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Benedict, 27",
+            img1: "scot1.png",
+            img2: "scot2.png",
+            img3: "scot3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Darius, 29",
+            img1: "mol1.png",
+            img2: "mol2.png",
+            img3: "mol3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Musa, 30",
+            img1: "per1.png",
+            img2: "per2.png",
+            img3: "per3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Cyril, 25",
+            img1: "hol1.png",
+            img2: "hol2.png",
+            img3: "hol3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Kai, 23",
+            img1: "serb1.png",
+            img2: "ser2.png",
+            img3: "ser3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
+        },
+        {
+        name: "Akin, 31",
+            img1: "dub1.png",
+            img2: "dub2.png",
+            img3: "dub3.png",
+            prompts: [
+                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
+                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
+                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+            ]
         }
     ];
 
     const deck = document.getElementById('deck');
-    let isAtTop = true; // Flag, um Swipen nur oben am Profil zu erlauben
+    const counterDisplay = document.getElementById('counter-display');
+    
+    // Zähler-Variable speichert die Anzahl der verbleibenden Profile
+    let remainingProfiles = profilesData.length;
+    let isAtTop = true; 
+
+    // Funktion aktualisiert den Text oben rechts im Header
+    function updateCounter() {
+        if (remainingProfiles > 0) {
+            counterDisplay.innerText = `Noch ${remainingProfiles} ${remainingProfiles === 1 ? 'Profil' : 'Profile'}`;
+        } else {
+            counterDisplay.innerText = "0 Profile";
+            counterDisplay.style.background = "rgba(231, 76, 60, 0.1)"; // Färbt sich leicht rötlich, wenn leer
+            counterDisplay.style.color = "#e74c3c";
+        }
+    }
 
     function checkScrollTop(element) {
-        // Prüft, ob der User ganz oben angekommen ist
         isAtTop = (element.scrollTop <= 5);
     }
 
     function createDeck() {
+        // Initialen Zählerstand anzeigen
+        updateCounter();
+
         profilesData.forEach((profile, index) => {
             const card = document.createElement('div');
             card.classList.add('profile-card');
@@ -297,9 +461,7 @@
         window.addEventListener('mouseup', endDrag);
 
         function startDrag(e) {
-            // Verhindert Swipen, wenn man mitten im Profil scrollt
             if (!isAtTop) return;
-
             isDragging = true;
             const touch = e.type.includes('touch') ? e.touches[0] : e;
             startX = touch.clientX;
@@ -313,7 +475,6 @@
             currentX = touch.clientX - startX;
             currentY = touch.clientY - startY;
 
-            // Verhindert Konflikte mit vertikalem Scrollen beim Ziehen
             if (Math.abs(currentX) > Math.abs(currentY)) {
                 let rotation = currentX / 12;
                 card.style.transform = `translate(${currentX}px, ${currentY * 0.1}px) rotate(${rotation}deg)`;
@@ -341,11 +502,25 @@
             if (currentX > swipeThreshold) {
                 card.style.transform = `translate(${window.innerWidth * 1.5}px, ${currentY}px) rotate(40deg)`;
                 card.style.opacity = '0';
-                setTimeout(() => { card.remove(); deck.scrollTop = 0; isAtTop = true; }, 300);
+                setTimeout(() => { 
+                    card.remove(); 
+                    deck.scrollTop = 0; 
+                    isAtTop = true;
+                    // HIER ERFOLGT DER SUBTRAKTIONS-SCHRITT
+                    remainingProfiles--;
+                    updateCounter();
+                }, 300);
             } else if (currentX < -swipeThreshold) {
                 card.style.transform = `translate(${-window.innerWidth * 1.5}px, ${currentY}px) rotate(-40deg)`;
                 card.style.opacity = '0';
-                setTimeout(() => { card.remove(); deck.scrollTop = 0; isAtTop = true; }, 300);
+                setTimeout(() => { 
+                    card.remove(); 
+                    deck.scrollTop = 0; 
+                    isAtTop = true;
+                    // HIER ERFOLGT DER SUBTRAKTIONS-SCHRITT
+                    remainingProfiles--;
+                    updateCounter();
+                }, 300);
             } else {
                 card.style.transform = 'translate(0, 0) rotate(0deg)';
                 likeBadge.style.opacity = 0;
