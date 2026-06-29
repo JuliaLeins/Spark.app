@@ -196,37 +196,26 @@
 <script>
     // Lokale Dateien aus deiner Ordner-Struktur im Sidebar
     const profilesData = [
+    {
+        name: "Luka, 28",
+            img1: "serb1.png",
+            img2: "ser2.png",
+            img3: "ser3.png",
+            prompts: [
+                { q: "Eines meiner Lebensziele ist…", a: "… mir ein stabiles Fundament aufzubauen, um später meiner eigenen kleinen Familie alles bieten zu können." },
+                { q: "Alles um das ich dich bitte ist, dass du...", a: "… dich darauf einlassen kannst, dass ein Mann dich auch einfach mal verwöhnen und beschützen will." },
+                { q: "Du solltest nach rechts swipen, wenn du...", a: "… Lust auf richtige Dates (mit Abholen und Türaufhalten) statt endlosem Texten hast." }
+            ]
+        },    
         {
             name: "Lenny, 26",
             img1: "ghan.png",
             img2: "ghan2.png",
             img3: "ghan3.png",
             prompts: [
-                { q: "Etwas bei dem ich keine Kompromisse eingehe, ist...", a: "...…meine Me-Time und Freiräume. Ich liebe es, Zeit zu zweit zu verbringen, brauche aber genauso meinen Interessen." },
-                { q: "Ändere meine Meinung über...", a: "...das alte Klischee, dass man in einer Beziehung alles teilen muss." },
-                { q: "Ich könnte die ganze Nacht über... reden.", a: "...die Frage, wie man die perfekte App designt." }
-            ]
-        },
-        {
-            name: "Dominic, 24",
-            img1: "por1.png",
-            img2: "por2.png",
-            img3: "por3.png",
-            prompts: [
-                { q: "Lass uns sicherstellen, dass wir uns einig sind über…", a: "…dass eine glückliche Beziehung nicht bedeutet, dass man jede freie Sekunde aufeinander hängen muss. Zeit für sich selbst ist extrem wichtig." },
-                { q: "Wir werden uns verstehen, wenn…", a: "…du dein eigenes Ding durchziehst, finanziell unabhängig bleibst und einen Partner willst, der deine Unabhängigkeit feiert und supportet." },
-                { q: "Zusammen könnten wir…", a: "…die Welt bereisen, unabhängig bleiben, zwischendurch unser eigenes Ding machen." }
-            ]
-        },
-        {
-        name: "Luka, 28",
-            img1: "serb1.png",
-            img2: "ser2.png",
-            img3: "ser3.png",
-            prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ich suche nach...", a: "… einem Lieblingsmenschen für ehrliche Gespräche, gemeinsame Pläne und gegenseitigen Freiraum." },
+                { q: "Lass uns sicher sein, dass wir uns einig sind über...", a: ".… den gesunden Mix aus intensiver Paarzeit und wichtigem Freiraum für jeden von uns." },
+                { q: "Ich möchte jemanden, der...", a: "… Gleichberechtigung nicht nur als Wort versteht, sondern im Alltag auch aktiv lebt." }
             ]
         },
         {
@@ -235,9 +224,20 @@
             img2: "deu2.png",
             img3: "deu3.png",
             prompts: [
-                { q: "Ich suche nach…", a: "…einer Partnerin, die das Herzstück unseres gemeinsamen Zuhauses sein möchte und mit mir die traditionelle Vorstellung von Familie teilt." },
-                { q: "Lass uns sicherstellen, dass wir uns einig sind über…", a: "…dass Verbindlichkeit und Familie die absolute Priorität haben und Dating für mich kein unverbindliches Spiel im Internet ist." },
-                { q: "Ändere meine Meinung über…", a: "…die Vorstellung, dass eine Ehe am besten funktioniert, wenn klare, klassische Zuständigkeiten verteilt sind und jeder seine feste Rolle kennt." }
+                { q: "Ich suche nach…", a: "… der klassischen Romantik, die heute leider viel zu selten geworden ist." },
+                { q: "Was ich einbringe ist...", a: "… absolute Zuverlässigkeit, Beschützerinstinkt und handwerkliches Geschick für alle Lebenslagen." },
+                { q: "Zusammen könnten wir...", a: "… eine Zukunft aufbauen, die auf Vertrauen, Stabilität und Liebe basiert." }
+            ]
+        },
+        {
+            name: "Dominic, 24",
+            img1: "por1.png",
+            img2: "por2.png",
+            img3: "por3.png",
+            prompts: [
+                { q: "Du solltest nach rechts swipen, wenn du...", a: "… eine Partnerschaft suchst, die auf Respekt, Teamwork und gegenseitiger Inspiration basiert." },
+                { q: "Ich könnte die ganze Nacht reden über...", a: "… wie man die Welt rettet, ohne dabei den Humor und die eigenen Ziele aus den Augen zu verlieren." },
+                { q: "Ich würde mich in dich verliebe, wenn...", a: "... du die Welt bereisen willst, unabhängig bleibst, und wir zusammen wachsen können." }
             ]
         },
         {
@@ -246,9 +246,9 @@
             img2: "nig2.png",
             img3: "nig3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ändere meine Meinung über...", a: "… das beste Rezept für ein funktionierendes Teamwork im Alltag (ich lasse mich gern überzeugen!)." },
+                { q: "Was ich einbringe ist...", a: "… die Energie für gemeinsame Projekte, absoluter Rückhalt und Respekt vor deinen Grenzen."},
+                { q: "Lass uns sicher sein, dass wir uns einig sind über...", a: "… eine offene und ehrliche Kommunikation, selbst wenn wir mal verschiedener Meinung sind." }
             ]
         },
         {
@@ -257,9 +257,9 @@
             img2: "span2.png",
             img3: "span3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ich könnte die ganze Nacht reden über...", a: "… Werte, Loyalität und was eine Partnerschaft wirklich langfristig zusammenhält." },
+                { q: "Ich möchte jemanden, der...", a: "… die Wärme in ein Zuhause bringt, während ich mich um das Fundament kümmere." },
+                { q: "Das Einzige, was du über mich wissen musst, ist...", a: "… Auf mein Wort kann man bauen – ich bin der Fels in der Brandung." }
             ]
         },
         {
@@ -268,9 +268,9 @@
             img2: "swed2.png",
             img3: "swed3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Das Einzige, was du über mich wissen musst, ist…", a: "… ich schätze meine Unabhängigkeit sehr, teile mein Leben aber unglaublich gern mit einem tollen Partner." },
+                { q: "Zusammen könnten wir...", a: "…Eis essen gehen, und dann die perfekte Mischung aus gemeinsamen Zielen und individuellem Wachstum kreieren." },
+                { q: "Du solltest mit mir ausgehen, wenn...", a: "…du Lust hast, das Leben absolut flexibel und ohne starre gesellschaftliche Normen zu gestalten." }
             ]
         },
         {
@@ -279,9 +279,9 @@
             img2: "tür2.png",
             img3: "tür3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ändere meine Meinung über..", a: "…das Gefühl von Sicherheit, das man nur bei der richtigen Person findet." },
+                { q: "Lass uns sicher sein, dass wir uns einig sind über...", a: "… den Stellenwert von Familie und engen Bindungen im Leben." },
+                { q: "Der Weg, mich für sich zu gewinnen ist...", a: "… Authentizität und die Fähigkeit die Kontrolle abzubegen und einem Mann auch mal das Steuer zu überlassen." }
             ]
         },
         {
@@ -290,9 +290,9 @@
             img2: "ita2.png",
             img3: "ita3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Etwas bei dem ich keine Kompromisse eingehe, ist...", a: "… mein Ziel, meiner zukünftigen Familie maximale Sicherheit zu bieten." },
+                { q: "Ich würde mich in dich verliebe, wenn...", a: "… du Weiblichkeit und Stärke perfekt miteinander verbindest." },
+                { q: "Du solltest mit mir ausgehen, wenn...", a: "… du dich mal wieder richtig ausgeführt und umsorgt fühlen möchtest." }
             ]
         },
         {
@@ -301,9 +301,9 @@
             img2: "alb2.png",
             img3: "alb3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Stimmst du zu, oder nicht, dass...", a: "… ein Mann seiner Frau die Welt zu Füßen legen sollte?" },
+                { q: "Wir werden uns verstehen, wenn...", a: "… du die Balance aus männlicher Tatkraft und weiblicher Intuition spannend findest." },
+                { q: "Wenn es falsch ist, das zu lieben, will ich nicht recht haben:", a: "Ein großes Sonntagsessen im Kreis der Familie, wo alle zusammenkommen." }
             ]
         },
         {
@@ -312,9 +312,9 @@
             img2: "scot2.png",
             img3: "scot3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Eines meiner Lebensziele ist…", a: "…Zu Reisen... und ein starkes Team aufzubauen, in dem beide Partner ihre eigenen Träume verwirklichen und sich gegenseitig den Rücken freihalten." },
+                { q: "Wir werden uns verstehen, wenn…", a: "…du ein Teamplayer bist, der trotzdem eine eigene, starke Meinung vertreten kann." },
+                { q: "Stimmst du zu, oder nicht, dass...", a: "…man sich auch in einer glücklichen Beziehung seine eigenen Hobbys und Freunde bewahren sollte?" }
             ]
         },
         {
@@ -323,9 +323,9 @@
             img2: "mol2.png",
             img3: "mol3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ich suche nach...", a: "… einer echten Partnerin, mit der man sich gegenseitig den Rücken freihält und gemeinsam groß denkt." },
+                { q: "Alles um das ich dich bitte ist, dass du...", a: "… ehrlich bist, Rückgrat hast und weißt, was du im Leben willst." },
+                { q: "Lass uns über dieses Thema diskutieren...", a: "… Warum kommen die klassischen Beziehungsmodelle heute eigentlich wieder so stark zurück?" }
             ]
         },
         {
@@ -334,9 +334,9 @@
             img2: "per2.png",
             img3: "per3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Ich könnte die ganze Nacht reden über...", a: "… alles, was uns bewegt – solange das Gespräch ein spannendes Geben und Nehmen ist." },
+                { q: "Etwas bei dem ich keine Kompromisse eingehe, ist...", a: "… gegenseitiger Respekt und die Gleichberechtigung in allen Lebenslagen." },
+                { q: "u solltest nach rechts swipen, wenn du...", a: "… keine Lust mehr auf alte Rollenbilder hast und ein modernes Miteinander schätzt." }
             ]
         },
         {
@@ -345,20 +345,20 @@
             img2: "hol2.png",
             img3: "hol3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Alles worum ich dich bitte ist, dass du...", a: "… Raum für deine eigenen Leidenschaften hast und mir denselben zugestehst." },
+                { q: "Ich suche nach...", a: "…jemandem, der sein eigenes Leben liebt, aber Lust hat, ein noch besseres Kapitel gemeinsam zu schreiben." },
+                { q: "Du solltest mit mir ausgehen, wenn...", a: "… du eine humorvolle Begleitung suchst, die dir auf Augenhöhe begegnet." }
             ]
         },
         {
         name: "Kai, 23",
-            img1: "serb1.png",
-            img2: "ser2.png",
-            img3: "ser3.png",
+            img1: "vietb1.png",
+            img2: "viet2.png",
+            img3: "viet3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Lass uns über dieses Thema diskutieren...", a: "…… Warum sind alte Rollenklischees out und wie definieren wir modernes Teamwork in einer Beziehung?" },
+                { q: "Ich würde mich in dich verliebe, wenn...", a: "… du eine starke Persönlichkeit hast, aber gleichzeitig weißt, wie man ein Teamplayer ist." },
+                { q: "Zusammen könnten wir...", a: "… ein unschlagbares Team werden, das sich den Herausforderungen des Lebens mit einem Lächeln stellt." }
             ]
         },
         {
@@ -367,9 +367,9 @@
             img2: "dub2.png",
             img3: "dub3.png",
             prompts: [
-                { q: "Alles, was ich dich bitte zu tun/sein ist…", a: "…mir zu vertrauen, wenn ich die Dinge in die Hand nehme, und mir nach einem langen Tag das Gefühl zu geben, angekommen zu sein." },
-                { q: "Stimmst du zu oder nicht, dass …", a: "…das Modell der klassischen Kernfamilie trotz aller neuen Trends immer noch das stabilste Fundament für eine gesunde Zukunft ist?" },
-                { q: "Was ich einbringe ist…", a: "…absolute Loyalität, Gentleman-Vibes und die Erziehung, einer Frau immer mit Schutz, Respekt und Fürsorge zu begegnen." }
+                { q: "Eines meiner Lebensziele ist…", a: "… eines Tages mein eigenes Haus mit Leben, Kinderlachen und Traditionen zu füllen." },
+                { q: "Was ich einbringe ist...", a: "… Stailität und den Wunsch, dir den Rücken freizuhalten, damit du strahlen kannst." },
+                { q: "Wenn es falsch ist, das zu lieben, will ich nicht recht haben:", a: "… Das Gefühl, der Fels in der Brandung und Versorger für meine Liebsten zu sein." }
             ]
         }
     ];
